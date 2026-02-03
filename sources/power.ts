@@ -54,6 +54,7 @@ import {
   isminusone,
   isminusoneovertwo,
   isone,
+  isplusone, // ADDED TO FIX BUG: (1/x^2)^(1/2) => abs(x)
   isoneovertwo,
   ispositivenumber,
   isquarterturn,
@@ -331,7 +332,9 @@ function yypower(base: U, exponent: U): U {
   let b_isEven_and_c_isItsInverse = false;
   if (iseveninteger(caddr(base))) {
     const isThisOne = multiply(caddr(base), exponent);
-    if (isone(isThisOne)) {
+    // FIX BUG: (1/x^2)^(1/2) => abs(x)
+    //if (isone(isThisOne)) {
+    if (isplusone(isThisOne)) {
       b_isEven_and_c_isItsInverse = true;
     }
   }
