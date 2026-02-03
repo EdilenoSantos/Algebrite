@@ -243,7 +243,9 @@ function yypower(base, exponent) {
     let b_isEven_and_c_isItsInverse = false;
     if (is_1.iseveninteger(defs_1.caddr(base))) {
         const isThisOne = multiply_1.multiply(defs_1.caddr(base), exponent);
-        if (is_1.isone(isThisOne)) {
+        // FIX BUG: (1/x^2)^(1/2) => abs(x)
+        //if (is_1.isone(isThisOne)) {
+        if (is_1.isplusone(isThisOne)) {
             b_isEven_and_c_isItsInverse = true;
         }
     }
