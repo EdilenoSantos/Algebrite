@@ -344,12 +344,19 @@ function yypower(base, exponent) {
             return tmp;
         }
     }
-    const polarResult = simplify_polar(exponent);
+    // FIX BUG: b^(pi*i) => -1, for b != e
+    /*const polarResult = simplify_polar(exponent);
     if (polarResult !== undefined) {
         if (DEBUG_POWER) {
             console.log('   power: using simplify_polar');
         }
         return polarResult;
+    }*/
+    if (base === defs_1.symbol(defs_1.E)) {
+      const polarResult = simplify_polar(exponent);
+      if (polarResult !== undefined) {
+        return polarResult;
+      }
     }
     const result = list_1.makeList(defs_1.symbol(defs_1.POWER), base, exponent);
     if (DEBUG_POWER) {
