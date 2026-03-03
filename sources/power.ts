@@ -468,12 +468,19 @@ function yypower(base: U, exponent: U): U {
     }
   }
 
-  const polarResult = simplify_polar(exponent);
+  // FIX BUG: b^(pi*i) => -1, for b != e
+  /*const polarResult = simplify_polar(exponent);
   if (polarResult !== undefined) {
     if (DEBUG_POWER) {
       console.log('   power: using simplify_polar');
     }
     return polarResult;
+  }*/
+  if (base === symbol(E)) {
+    const polarResult = simplify_polar(exponent);
+    if (polarResult !== undefined) {
+      return polarResult;
+    }
   }
 
   const result = makeList(symbol(POWER), base, exponent);
